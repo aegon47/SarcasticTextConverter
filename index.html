@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>sArcAStIC tEXt GEneraTOR
+        </h1>
+    
+    </header>
+    <!-- <button id="darkToggle" onclick="ToggleDarkMode()">Change to Light/ Dark mode</button> -->
+    <div>
+
+        <p>Enter your text</p>
+        <input type  = "text" id = "userInput" placeholder="Enter text here" onkeydown="handleKey(event)" oninput="charChange()">
+        <!-- <button onclick="convertToSarcastic()">Convert</button> -->
+        <button onclick="clearFunction()">Clear</button>
+        <button onclick="charChange()">Refresh</button>
+    </div>
+        
+
+<div id = "copyToClipBoard">
+    <p id = "result"></p>
+    <button onclick = "copyToClipBoard()">Copy to Clip board</button>
+</div>
+
+
+    <footer>
+        <p>&copy; 2024 Chandrahas. All rights reserved.</p>
+    </footer>
+    <script>
+        function convertToSarcastic(){
+            const input = document.getElementById('userInput').value;
+            const sarcasticText = input.toLowerCase();
+            document.getElementById('result').innerText = sarcasticText;
+        }
+        function handleKey(event){
+            if (event.key=="Enter"){
+                convertToSarcastic();
+            }
+        }
+
+
+        function charChange(){
+            // const input = document.getElementById('userInput').value;
+            // const last = input[input.length - 1]
+            // if (Math.random() < 0.5) {
+            //     document.getElementById('result').innerText += last.toLowerCase();
+            // } else {
+            //     document.getElementById('result').innerText += last.toUpperCase();
+            // }
+            var st = ''
+            const str = document.getElementById('userInput').value;
+            const charArray = str.split('');
+            charArray.forEach(element => {
+                if (Math.random() < 0.5) {
+                    st += element.toLowerCase();
+                } else {
+                    st+= element.toUpperCase();
+                }
+            });
+
+            document.getElementById('result').innerText = st;
+        }
+
+        async function copyToClipBoard(){
+            var tex = document.getElementById("result").innerText;
+
+            if(document.getElementById('result').innerText ==""){
+                alert("Empty input");
+            }
+            else{
+
+                navigator.clipboard.writeText(tex)
+                .then(() => {
+                    alert("Copied the text: " + tex);
+                })
+                .catch(err => {
+                    console.error("Failed to copy text: ", err);
+                });
+            }
+        }
+
+        window.onload = function() {
+            document.getElementById('userInput').value = '';
+        };
+
+        function clearFunction(){
+            document.getElementById('userInput').value = '';
+            document.getElementById('result').innerText ="";
+            
+        }
+
+
+        function ToggleDarkMode(){
+            const body = document.body;
+            const backgroundColor = window.getComputedStyle(body).backgroundColor;
+            if (backgroundColor === 'rgb(255, 255, 255)') {
+                body.style.backgroundColor = 'black';
+                body.style.color = 'white'
+                
+            } else if (backgroundColor === 'rgb(0, 0, 0)') {
+                body.style.backgroundColor = 'white';
+                body.style.color = 'black'
+            }
+
+        }
+
+    </script>
+</body>
+</html>
